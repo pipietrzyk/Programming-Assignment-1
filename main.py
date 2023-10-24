@@ -1,5 +1,5 @@
 import sys
-import minimax
+from minimax import *
 from state import State
 
 # tic-tac-toe board representation
@@ -90,7 +90,7 @@ def main() :
         else :
             take_turn(board, player, algo)
             
-            
+
         board.show_board()
 
         checkWin = board.utility(player)
@@ -115,15 +115,13 @@ def main() :
 def show_player_prompt(brd : State) :
     prompt = "X's move. What is your move (possible moves at the moment are: <"
     
-    actions = brd.actions()
-    for x in range(len(actions)) :
-        if brd.get_cell(x) == " " :
-            prompt = prompt + str(x+1) + ", "
+    for x in brd.actions() :
+        prompt = prompt + str(x) + ", "
 
     # Remove the trailing ', ' that would otherwise appear
     prompt = prompt[0:len(prompt)-2]
 
-    prompt = prompt + "> | enter 0 to exit the game)?"
+    prompt = prompt + "> | enter 0 to exit the game)? "
     return prompt
 
 # Tells the function that brd is of type State
@@ -136,7 +134,7 @@ def take_turn(brd : State, plyr, alg) :
         cell, nodes = minimax_ab(brd, plyr)
 
     brd.result(plyr, cell)
-    print(plyr + "'s selected move: " + (cell+1) + ". Number of search tree nodes generated: " + nodes)
+    print(plyr + "'s selected move: " + str(cell+1) + ". Number of search tree nodes generated: " + str(nodes))
     return brd
 
 
