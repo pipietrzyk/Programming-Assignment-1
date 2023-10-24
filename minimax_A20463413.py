@@ -47,7 +47,7 @@ def min_value(brd : State, plyr, nodes) :
             u, move = u2, a-1
     return u, move, nodes
 
-
+# TODO: WRITE IT OUT ON PAPER - MAYBE ITS SUPPOSED TO BE FUCKED
 def minimax_ab(brd : State, plyr) :
     utility, cell, nodes = max_value_ab(brd, plyr, -10, 10, 1)
     return cell, nodes
