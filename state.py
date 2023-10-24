@@ -17,9 +17,10 @@ class State :
     def get_cell(self, cell) :
         return self.board[cell]
     
-    # Return the board list
+    # Return a copy of the board list 
+    # Essentially passes the board list by value instead of by reference, which is important in the min_value and max_value functions
     def get_board(self) :
-        return self.board
+        return (self.board).copy()
 
     # List all of the available actions as a list
     def actions(self) :
@@ -45,6 +46,7 @@ class State :
     
     # Determine the utility of a board state for a given player
     # Will only be called when the board is in a terminal state so it assumes the board is in some kind of terminal state
+    # UTILITY HAS PLAYER = -2 AND ENEMY = 2
     def utility(self, player) :
         if player == "X" :
             enemy = "O"

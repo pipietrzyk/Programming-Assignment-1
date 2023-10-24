@@ -3,27 +3,29 @@ from state import State
 # Tells the function that brd is of type State
 #TODO: Try passing in board as a list instead of an object
 def minimax(brd : State, plyr) :
-    utility, cell = max_value(brd, plyr)
-    return utility, cell
+    utility, cell, nodes = max_value(brd, plyr, 1)
+    return cell, nodes
 
 # TODO: player might need to be opposite from MIN
 # Tells the function that brd is of type State
-def max_value(brd : State, plyr) :
+def max_value(brd : State, plyr, nodes) :
+    nodes = nodes + 1
+
     if plyr == "X" :
         enemy = "O"
     else :
         enemy = "X"
 
     if brd.is_terminal() :
-        return (brd.utility(plyr), 0)
+        return (brd.utility(plyr), 0, nodes)
     u = -10
     for a in brd.actions() :
         newBrd = State(brd.get_board())
         newBrd.result(plyr, a-1)
-        u2, a2 = min_value(newBrd, plyr)
+        u2, a2, nodes = min_value(newBrd, enemy, nodes)
         if u2 > u :
             u, move = u2, a-1
-    return (u, move)
+    return u, move, nodes
 
     # if game.IS-TERMINAL(board) then return (game.UTILITY(board, player), null)
     # v = -10 (v = value aka utility)
@@ -35,22 +37,24 @@ def max_value(brd : State, plyr) :
 
 # TODO: player might need to be opposite from MAX
 # Tells the function that brd is of type State
-def min_value(brd : State, plyr) :
+def min_value(brd : State, plyr, nodes) :
+    nodes = nodes + 1
+
     if plyr == "X" :
         enemy = "O"
     else :
         enemy = "X"
 
     if brd.is_terminal() :
-        return (brd.utility(plyr), 0)
+        return (brd.utility(enemy), 0, nodes)
     u = 10
     for a in brd.actions() :
         newBrd = State(brd.get_board())
         newBrd.result(plyr, a-1)
-        u2, a2 = max_value(newBrd, plyr)
+        u2, a2, nodes = max_value(newBrd, enemy, nodes)
         if u2 < u :
             u, move = u2, a-1
-    return (u, move)
+    return u, move, nodes
 
     # if game.IS-TERMINAL(board) then return (game.UTILITY(board, player), null)
     # v = 10

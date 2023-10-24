@@ -88,10 +88,9 @@ def main() :
                     misinput = False
             board.result(player, cell-1)
         else :
-            #take_turn should return only a cell
-            board.result(player, take_turn(board, player, algo))
-
-
+            take_turn(board, player, algo)
+            
+            
         board.show_board()
 
         checkWin = board.utility(player)
@@ -137,7 +136,7 @@ def take_turn(brd : State, plyr, alg) :
         cell, nodes = minimax_ab(brd, plyr)
 
     brd.result(plyr, cell)
-    print(plyr + "'s selected move: " + cell + ". Number of search tree nodes generated: " + nodes)
+    print(plyr + "'s selected move: " + (cell+1) + ". Number of search tree nodes generated: " + nodes)
     return brd
 
 
