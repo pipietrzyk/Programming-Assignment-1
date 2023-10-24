@@ -1,4 +1,4 @@
-from state import State
+from state_A20463413 import State
 
 # Tells the function that brd is of type State
 def minimax(brd : State, plyr) :

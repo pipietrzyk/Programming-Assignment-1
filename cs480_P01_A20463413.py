@@ -1,6 +1,6 @@
 import sys
-from minimax import *
-from state import State
+from minimax_A20463413 import *
+from state_A20463413 import State
 
 # tic-tac-toe board representation
 #
