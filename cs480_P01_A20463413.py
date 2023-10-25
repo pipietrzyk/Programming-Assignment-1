@@ -42,17 +42,14 @@ else :
 
 
 def main() :
-    # Represents the available spaces on the tic-tac-toe board (starts empty)
-    # Uses the Board class to make a board object
-    # " " means the space is empty
-    # "X" means the space is filled with an X
-    # "O" means the space is filled with an O
+    
+    # Uses the Board class to make an empty board object
     board = State()
 
     # Print intro display
     print("Pietrzyk, Piotr, A20463413 solution:\nAlgorithm: " + algoText + "\nFirst: " + first + "\nMode: " + modeText)
 
-    # Used to determine which player's turn it is
+    # The player variable will be used to determine which player's turn it is
     player = first
 
     # First show the empty board
@@ -86,11 +83,13 @@ def main() :
                     continue
                 else :
                     misinput = False
+                    
+            # Player's turn is actually taken here
             board.result(player, cell-1)
         else :
-            take_turn(board, player, algo)
+            take_turn(board, player, algo) # It is the computer's turn
             
-
+        # Show the board after a turn is taken
         board.show_board()
 
         checkWin = board.utility(player)
@@ -111,7 +110,7 @@ def main() :
 
 
 # Use the board array to build the prompt that will display to the human player a list of possible moves
-# Tells the function that brd is of type State
+# Tells the function that brd (the board object) is of type State
 def show_player_prompt(brd : State) :
     prompt = "X's move. What is your move (possible moves at the moment are: <"
     
@@ -124,15 +123,17 @@ def show_player_prompt(brd : State) :
     prompt = prompt + "> | enter 0 to exit the game)? "
     return prompt
 
-# Tells the function that brd is of type State
+
+# take_turn() first checks which algorithm to use then calls the appropriate minimax function, passing it the board state and the player whose turn it is
+# Tells the function that brd (the board object) is of type State
 def take_turn(brd : State, plyr, alg) :
-    # Tuple that will store the cell chosen by a minimax algorithm as well as how many nodes were generated
 
     if alg == 1 :
         cell, nodes = minimax(brd, plyr)
     elif alg == 2 :
         cell, nodes = minimax_ab(brd, plyr)
 
+    # Display the resulting move the player played and display how many nodes were generated
     brd.result(plyr, cell)
     print(plyr + "'s selected move: " + str(cell+1) + ". Number of search tree nodes generated: " + str(nodes))
     return brd

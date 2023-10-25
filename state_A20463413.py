@@ -1,11 +1,15 @@
 class State :
-    # Initialize a board state, with the default value being an empty board
+    # Represents the available spaces on the tic-tac-toe board (starts empty)
+    # " " means the space is empty
+    # "X" means the space is filled with an X
+    # "O" means the space is filled with an O
+    # By default it generates an empty board
     def __init__(self, board = [" ", " ", " ",
                                 " ", " ", " ",
                                 " ", " ", " "]) :
         self.board = board
 
-    # Use the board array to build and show a tic-tac-toe board to the player
+    # Use the board list to build and show a tic-tac-toe board to the player
     def show_board(self) :
         print(" " + self.board[0] + " " + "|" + " " + self.board[1] + " " + "|" + " " + self.board[2] + " \n" +
               "---+---+---\n" +
@@ -22,7 +26,7 @@ class State :
     def get_board(self) :
         return (self.board).copy()
 
-    # List all of the available actions as a list
+    # List all of the available actions as a list (1-9 instead of 0-8)
     def actions(self) :
         actions = []
         for x in range(len(self.board)) :
@@ -30,10 +34,9 @@ class State :
                 actions.append(x+1)
         return actions
     
-    # Perform an action and return the resulting board
+    # Perform an action and update the board accordingly
     def result(self, player, action) :
         self.board[action] = player
-        #return self.board
     
     # Is the game in a terminal state (true/false)?
     # Uses python list comprehension
@@ -45,8 +48,7 @@ class State :
                or not (" " in self.board)
     
     # Determine the utility of a board state for a given player
-    # Will only be called when the board is in a terminal state so it assumes the board is in some kind of terminal state
-    # UTILITY HAS PLAYER = -2 AND ENEMY = 2
+    # Uses list comprehension similarly to is_terminal()
     def utility(self, player) :
         if player == "X" :
             enemy = "O"
