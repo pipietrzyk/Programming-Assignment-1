@@ -69,7 +69,7 @@ def max_value_ab(brd : State, plyr, alpha, beta, nodes) :
         u2, a2, nodes = min_value_ab(newBrd, enemy, alpha, beta, nodes)
         if u2 > u :
             u, move = u2, a-1
-            alpha = max(a, u)
+            alpha = max(alpha, u)
         if u >= beta :
             return u, move, nodes
     return u, move, nodes
